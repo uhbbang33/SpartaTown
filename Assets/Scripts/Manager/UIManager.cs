@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -72,11 +73,7 @@ public class UIManager : MonoBehaviour
         _timeText.text = DateTime.Now.ToString("HH : mm");
     }
 
-    public void CharacterSelectButton()
-    {
-        _imageSelectCanvas.SetActive(true);
-    }
-
+    #region Button - For Character Info Change UI 
     public void EnterButton()
     {
         if (_playerNameInput.text.Length > 2 && _playerNameInput.text.Length < 12)
@@ -86,9 +83,15 @@ public class UIManager : MonoBehaviour
             _nickNameInputCanvas.SetActive(false);
 
             GameManager.Instance.SetTimeScale(1.0f);
+            UpdateAttendanceText();
         }
         else
             _nicknameWarning.SetActive(true);
+    }
+
+    public void CharacterSelectButton()
+    {
+        _imageSelectCanvas.SetActive(true);
     }
 
     public void SelectPenguinCharacter()
@@ -116,19 +119,15 @@ public class UIManager : MonoBehaviour
         _nickNameInputCanvas.SetActive(true);
         GameManager.Instance.SetTimeScale(0.0f);
     }
+    #endregion
 
+    #region Attendance
     public void ShowAttendanceButton()
     {
         if (_attendanceCanvas.activeSelf) _attendanceCanvas.SetActive(false);
         else
         {
-            // update attendance
-            _attendanceNameText.text = string.Empty;
-            foreach (string nameText in _nameList)
-                _attendanceNameText.text += nameText + "\n";
-
-            _attendanceNameText.text += _playerName.text;
-
+            UpdateAttendanceText();
             _attendanceCanvas.SetActive(true);
         }
     }
@@ -138,6 +137,18 @@ public class UIManager : MonoBehaviour
         _attendanceNameText.text += text + "\n";
     }
 
+    public void UpdateAttendanceText()
+    {
+        // update attendance
+        _attendanceNameText.text = string.Empty;
+        foreach (string nameText in _nameList)
+            _attendanceNameText.text += nameText + "\n";
+
+        _attendanceNameText.text += _playerName.text;
+    }
+    #endregion
+
+    #region NPC Dialogue
     public void ShowDialogueButtonPanel(bool isActive, string npcObject)
     {
         _dialogueButtonPanel.SetActive(isActive);
@@ -151,13 +162,14 @@ public class UIManager : MonoBehaviour
         _dialoguePanel.SetActive(true);
     }
 
+    public void ExitDialogue() // button
+    {
+        _dialoguePanel.SetActive(false);
+    }
+
     public void SetDialogueMessage(string data)
     {
         _dialoguePanel.GetComponentInChildren<TextMeshProUGUI>().text = data;
     }
-
-    public void ExitDialogue()
-    {
-        _dialoguePanel.SetActive(false);
-    }
+    #endregion
 }
