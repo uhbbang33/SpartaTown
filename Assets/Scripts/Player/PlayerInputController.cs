@@ -12,9 +12,9 @@ public class PlayerInputController : PlayerController
         _camera = Camera.main;
     }
 
-    // send Message ¹æ½Ä
-    // ¿ÉÀú¹ö ÆĞÅÏ
-    // Move°¡ ÀÏ¾î³¯ ¶§ ±¸µ¶ÀÚµé¿¡°Ô(callmoveevent) ¾Ë·ÁÁÜ
+    // send Message ë°©ì‹
+    // ì˜µì €ë²„ íŒ¨í„´
+    // Moveê°€ ì¼ì–´ë‚  ë•Œ êµ¬ë…ìë“¤ì—ê²Œ(callmoveevent) ì•Œë ¤ì¤Œ
     public void OnMove(InputValue value)
     {
         Vector2 moveInput = value.Get<Vector2>().normalized;
@@ -23,17 +23,17 @@ public class PlayerInputController : PlayerController
 
     public void OnLook(InputValue value)
     {
-        // ¸¶¿ì½º positionÀ» ¹Ş¾Æ¿È
+        // ë§ˆìš°ìŠ¤ positionì„ ë°›ì•„ì˜´
         Vector2 newAim = value.Get<Vector2>();
-        // ¸¶¿ì½º ÁÂÇ¥(UI, screen ÁÂÇ¥)¸¦ ¿ùµå ÁÂÇ¥·Î º¯È¯
-        // worldPos: ¸¶¿ì½ºÀÇ ¿ùµå»ó Æ÷Áö¼Ç
+        // ë§ˆìš°ìŠ¤ ì¢Œí‘œ(UI, screen ì¢Œí‘œ)ë¥¼ ì›”ë“œ ì¢Œí‘œë¡œ ë³€í™˜
+        // worldPos: ë§ˆìš°ìŠ¤ì˜ ì›”ë“œìƒ í¬ì§€ì…˜
         Vector2 worldPos = _camera.ScreenToWorldPoint(newAim);
-        // ¿ùµå ÁÂÇ¥¿¡¼­ Player ÁÂÇ¥¸¦ »©¸é
-        // ¿ùµå ÁÂÇ¥·Î ÇâÇÏ´Â °ªÀÌ ³ª¿È - Å©±â´Â ÁÂÇ¥¸¦ »« ¸¸Å­
-        // ±× Å©±â¸¦ normalized¸¦ ÅëÇØ ´ÜÀ§ º¤ÅÍ - ¹æÇâ º¤ÅÍ·Î ¸¸µé¾îÁÜ
+        // ì›”ë“œ ì¢Œí‘œì—ì„œ Player ì¢Œí‘œë¥¼ ë¹¼ë©´
+        // ì›”ë“œ ì¢Œí‘œë¡œ í–¥í•˜ëŠ” ê°’ì´ ë‚˜ì˜´ - í¬ê¸°ëŠ” ì¢Œí‘œë¥¼ ëº€ ë§Œí¼
+        // ê·¸ í¬ê¸°ë¥¼ normalizedë¥¼ í†µí•´ ë‹¨ìœ„ ë²¡í„° - ë°©í–¥ ë²¡í„°ë¡œ ë§Œë“¤ì–´ì¤Œ
         newAim = (worldPos - (Vector2)transform.position).normalized;
 
-        // magnitude - 3D¿¡¼­ ¹®Á¦ -> ¼Óµµ °ü·Ã
+        // magnitude - 3Dì—ì„œ ë¬¸ì œ -> ì†ë„ ê´€ë ¨
         if (newAim.magnitude >= .9f)
             CallLookEvent(newAim);
     }

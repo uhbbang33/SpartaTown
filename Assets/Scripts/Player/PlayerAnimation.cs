@@ -11,7 +11,7 @@ public class PlayerAnimation : MonoBehaviour
 
     private void Awake()
     {
-        _contorller = GetComponent<PlayerController>();
+        _contorller = GetComponentInParent<PlayerController>();
     }
 
     void Start()

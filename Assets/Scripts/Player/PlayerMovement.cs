@@ -3,20 +3,22 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerMovement : MonoBehaviour
 {
     private PlayerController _contorller;
 
-    [SerializeField] SpriteRenderer _playerRenderer;
-
     private Vector2 _movementDirection = Vector2.zero;
     private Rigidbody2D _rigidbody;
+
+    private SpriteRenderer _playerRenderer;
 
     private void Awake()
     {
         _contorller = GetComponent<PlayerController>();
         _rigidbody = GetComponent<Rigidbody2D>();
+        _playerRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     private void Start()
